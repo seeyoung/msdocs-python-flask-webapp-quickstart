@@ -3,8 +3,13 @@ import os
 from flask import (Flask, redirect, render_template, request,
                    send_from_directory, url_for, jsonify)
 
+import logging
+
+
 app = Flask(__name__)
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 @app.route('/')
 def index():
@@ -28,8 +33,11 @@ def hello():
        return redirect(url_for('index'))
 
 
-@app.route('/sayHello', methods=['POST', 'GET'])
+@app.route('/sayHello', methods=['POST'])
 def say_hello():
+    app.logger.info('Request received for /sayHello')
+    app.logger.info('Request JSON: %s', request.json)
+
     response_body = {
         "version": "2.0",
         "template": {
@@ -44,7 +52,7 @@ def say_hello():
     }
     return jsonify(response_body)
 
-@app.route('/showHello', methods=['POST', 'GET'])
+@app.route('/showHello', methods=['POST'])
 def show_hello():
     response_body = {
         "version": "2.0",
