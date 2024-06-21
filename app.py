@@ -28,7 +28,7 @@ def hello():
        return redirect(url_for('index'))
 
 
-@app.route('/sayHello', methods=['GET'])
+@app.route('/sayHello', methods=['POST'])
 def say_hello():
     response_body = {
         "version": "2.0",
@@ -44,7 +44,7 @@ def say_hello():
     }
     return jsonify(response_body)
 
-@app.route('/showHello', methods=['GET'])
+@app.route('/showHello', methods=['POST'])
 def show_hello():
     response_body = {
         "version": "2.0",
